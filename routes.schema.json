@@ -6,6 +6,11 @@
   "description": "This schema defines the expected values of routes.json files provided by OpenMRS frontend modules. These files describe the pages, extensions, and requirements of the frontend module so they can be appropriately consumed by the app shell.",
   "type": "object",
   "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "The schema for this JSON document. Should point to the canonical URL for this document."
+      "default": "https://json.openmrs.org/routes.schema.json"
+    },
     "backendDependencies": {
       "type": "object",
       "description": "A list of backend modules necessary for this frontend module and the corresponding required versions.",
