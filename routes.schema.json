@@ -8,7 +8,7 @@
   "properties": {
     "$schema": {
       "type": "string",
-      "description": "The schema for this JSON document. Should point to the canonical URL for this document."
+      "description": "The schema for this JSON document. Should point to the canonical URL for this document.",
       "default": "https://json.openmrs.org/routes.schema.json"
     },
     "backendDependencies": {
