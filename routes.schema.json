@@ -84,6 +84,10 @@
             "type": "string",
             "description": "If supplied, the slot that this extension is rendered into by default."
           },
+          "slots": {
+            "type": "array",
+            "description": "If supplied, the slots that this extension is rendered into by default."
+          },
           "privilege": {
             "oneOf": [
               { "type": "array", "items": { "type": "string" } },
