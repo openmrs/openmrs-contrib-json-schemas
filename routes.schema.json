@@ -82,7 +82,7 @@
           },
           "slot": {
             "type": "string",
-            "description": "If supplied, the slot that this extension is rendered into by default."
+            "description": "If supplied, the slot that this extension is rendered into by default. Note that this is overridden by the slots property if that is also specified."
           },
           "slots": {
             "type": "array",
