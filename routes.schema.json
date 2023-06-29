@@ -108,7 +108,7 @@
           "order": {
             "type": "integer",
             "description": "Determines the order in which this component renders in its default extension slot. Note that this can be overridden by configuration.",
-            "minimum": 0
+            "minimum": -1
           },
           "meta": {
             "type": "object",
