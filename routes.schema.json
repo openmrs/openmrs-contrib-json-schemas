@@ -113,6 +113,10 @@
           "meta": {
             "type": "object",
             "description": "Meta describes any properties that are passed down to the extension when it is loaded"
+          },
+          "featureFlag": {
+            "type": "string",
+            "description": "The name of a feature flag that is defined in the system"
           }
         },
         "required": ["component", "name"]
