@@ -47,142 +47,76 @@
             "questions": {
               "type": "array",
               "description": "An array of all the questions in a section. Questions make up the fields of the form",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "description": "Unique identifier of the question. Should be unique across all questions in the form. Prefer using camelCase for this property."
-                },
-                "label": {
-                  "type": "string",
-                  "description": "The question label that is displayed to the user"
-                },
-                "required": {
-                  "type": "boolean",
-                  "description": "Determines whether the question is a required field or not. Required fields must be answered before the form can be submitted. They may also get marked with a red asterisk (*) in the UI to denote them as required fields.",
-                  "default": false
-                },
-                "questionOptions": {
-                  "type": "object",
-                  "description": "Specifies metadata relating the question. These metadata are used to determine how the question is rendered in the UI, and how it is validated among other things.",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "description": "Determines the datatype that the question accepts. The value of this property should be one of the supported datatypes."
-                    },
-                    "rendering": {
-                      "type": "string",
-                      "description": "Determines how the question is rendered in the UI. The value of this property should be one of the supported field types."
-                    },
-                    "concept": {
-                      "type": "string",
-                      "description": "The concept UUID of the backing concept for the question. This value should be a valid UUID of a concept that exists in the concept dictionary of your distribution."
-                    },
-                    "answers": {
-                      "type": "array",
-                      "description": "An array of all the possible answers for the question.",
-                      "properties": {
-                        "concept": {
-                          "type": "string",
-                          "description": "The backing concept UUID of the answer"
-                        },
-                        "label": {
-                          "type": "string",
-                          "description": "The label of the answer. This is what is displayed to the user"
-                        }
-                      },
-                      "required": ["concept", "label"]
-                    },
-                    "conceptMappings": {
-                      "type": "array",
-                      "description": "The concept mappings associated with an answer",
-                      "properties": {
-                        "relationship": {
-                          "type": "string",
-                          "description": "The relationship between concepts"
-                        },
-                        "type": {
-                          "type": "string",
-                          "description": "The concept mapping references"
-                        },
-                        "value": {
-                          "type": "string",
-                          "description": "The concept reference term value"
-                        }
-                      }
-                    },
-                    "calculate": {
-                      "type": "object",
-                      "description": "Calculate logic of the question",
-                      "properties": {
-                        "calculateExpression": {
-                          "type": "string",
-                          "description": "JavaScript expression that determines the value of the question from evaluating a calculation"
-                        }
-                      }
-                    },
-                    "min": {
-                      "type": "string",
-                      "description": "Minimum value of the question"
-                    },
-                    "max": {
-                      "type": "string",
-                      "description": "Maximum value of the question"
-                    },
-                    "minLength": {
-                      "type": "string",
-                      "description": "Minimum length of the question"
-                    },
-                    "maxLength": {
-                      "type": "string",
-                      "description": "Maximum length of the question"
-                    }
-                  },
-                  "required": ["type", "rendering", "answers"]
-                },
-                "validators": {
-                  "type": "array",
-                  "description": "An array of all the validators related to a question",
-                  "properties": {
-                    "type": {
-                      "type": "string",
-                      "description": "Type of the validator"
-                    },
-                    "message": {
-                      "type": "string",
-                      "description": "The message that is displayed when validation fails"
-                    },
-                    "allowFutureDates": {
-                      "oneOf": [{ "type": "boolean" }, { "type": "string" }],
-                      "description": "Either a boolean or a string.\n Determines whether dates in the future are allowed for a date field or not. If set to true or 'true', future dates are allowed. If false or 'false', future dates are not allowed."
-                    },
-                    "failsWhenExpression": {
-                      "type": "string",
-                      "description": "A JavaScript expression that determines whether the validation should fail or not"
-                    },
-                    "warnsWhenExpression": {
-                      "type": "string",
-                      "description": "A JavaScript expression that determines whether the a warning should be displayed next to the field or not"
-                    }
-                  }
-                },
-                "hide": {
-                  "type": "object",
-                  "description": "An object that contains logic that determines whether a question should be hidden or not",
-                  "properties": {
-                    "hideWhenExpression": {
-                      "type": "string",
-                      "description": "JavaScript expression that determines whether a question should be hidden or not. If the expression evaluates to true, the question is hidden. If it evaluates to false, the question is shown."
-                    }
-                  }
-                },
-                "historicalExpression": {
-                  "type": "string",
-                  "description": "JavaScript expression that resolves to a value from a previous encounter, if available. This value can be used to answer the question."
-                }
-              }
-            }
+              "items": { "$ref": "#/definitions/formField" }
+            },
+            "isHidden": {
+              "type": "boolean",
+              "description": "Determines if the section is hidden"
+            },
+            "isParentHidden": {
+              "type": "boolean",
+              "description": "Determines if the parent of the section is hidden"
+            },
+            "inlineRendering": {
+              "type": "string",
+              "enum": ["single-line", "multiline", "automatic"],
+              "description": "Inline rendering options"
+            },
+            "readonly": {
+              "oneOf": [
+                { "type": "string" },
+                { "type": "boolean" }
+              ],
+              "description": "Read-only flag"
+            },
+            "reference": {
+              "$ref": "#/definitions/formReference"
+            },
+            "hide": { "$ref": "#/definitions/hideProps" }
           },
           "required": ["label", "questions"]
+        },
+        "isHidden": {
+          "type": "boolean",
+          "description": "Determines if the page is hidden"
+        },
+        "hide": { "$ref": "#/definitions/hideProps" },
+        "isSubform": {
+          "type": "boolean",
+          "description": "Determines if the page is a subform"
+        },
+        "inlineRendering": {
+          "type": "string",
+          "enum": ["single-line", "multiline", "automatic"],
+          "description": "Inline rendering options"
+        },
+        "readonly": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "boolean" }
+          ],
+          "description": "Read-only flag"
+        },
+        "subform": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the subform"
+            },
+            "package": {
+              "type": "string",
+              "description": "Package of the subform"
+            },
+            "behaviours": {
+              "type": "array",
+              "items": {}
+            },
+            "form": {
+              "$ref": "#/definitions/formSchemaWithoutPostSubmissionActions"
+            }
+          },
+          "description": "Subform information"
         }
       },
       "required": ["label", "sections"]
@@ -211,7 +145,403 @@
     "inlineRendering": {
       "type": "string",
       "description": "Determines whether the form is rendered inline or not"
+    },
+    "referencedForms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "formName": {
+            "type": "string",
+            "description": "Name of the referenced form"
+          },
+          "alias": {
+            "type": "string",
+            "description": "Alias of the referenced form"
+          }
+        },
+        "required": ["formName", "alias"]
+      },
+      "description": "Array of referenced forms"
+    },
+    "encounter": {
+      "oneOf": [
+        { "type": "string" },
+        { "$ref": "#/definitions/openmrsEncounter" }
+      ],
+      "description": "Encounter information"
+    },
+    "allowUnspecifiedAll": {
+      "type": "boolean",
+      "description": "Determines if unspecified options are allowed for all"
+    },
+    "defaultPage": {
+      "type": "string",
+      "description": "Default page of the form"
+    },
+    "readonly": {
+      "oneOf": [
+        { "type": "string" },
+        { "type": "boolean" }
+      ],
+      "description": "Read-only flag"
+    },
+    "markdown": {
+      "description": "Markdown content"
+    },
+    "postSubmissionActions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "actionId": { "type": "string" },
+          "config": { "type": "object" }
+        }
+      },
+      "description": "Post submission actions"
+    },
+    "formOptions": {
+      "type": "object",
+      "properties": {
+        "usePreviousValueDisabled": { "type": "boolean" }
+      },
+      "description": "Form options"
     }
   },
-  "required": ["name", "version", "pages", "encounterType"]
+  "required": ["name", "version", "pages", "encounterType"],
+  "definitions": {
+    "formSchemaWithoutPostSubmissionActions": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "pages": { "type": "array", "items": {} },
+        "processor": { "type": "string" },
+        "uuid": { "type": "string" },
+        "referencedForms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "formName": { "type": "string" },
+              "alias": { "type": "string" }
+            },
+            "required": ["formName", "alias"]
+          }
+        },
+        "encounterType": { "type": "string" },
+        "encounter": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "object" } 
+          ]
+        },
+        "allowUnspecifiedAll": { "type": "boolean" },
+        "defaultPage": { "type": "string" },
+        "readonly": { "type": ["string", "boolean"] },
+        "inlineRendering": { "type": "string", "enum": ["single-line", "multiline", "automatic"] },
+        "markdown": {},
+        "formOptions": {
+          "type": "object",
+          "properties": {
+            "usePreviousValueDisabled": { "type": "boolean" }
+          }
+        },
+        "version": { "type": "string" }
+      },
+      "required": ["name", "pages", "processor", "uuid", "referencedForms", "encounterType"]
+    },
+    "formReference": {
+      "type": "object",
+      "properties": {
+        "form": { "type": "string" },
+        "page": { "type": "string" },
+        "section": { "type": "string" },
+        "excludeQuestions": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["form", "page", "section"]
+    },
+    "hideProps": {
+      "type": "object",
+      "description": "An object that contains logic that determines whether a page or section or question should be hidden or not",
+      "properties": {
+        "hideWhenExpression": {
+          "type": "string",
+          "description": "JavaScript expression that determines whether a page or section or question should be hidden or not. If the expression evaluates to true, the page or section or question is hidden. If it evaluates to false, the page or section or question is shown."
+        }
+      },
+      "required": ["hideWhenExpression"]
+    },
+    "formField": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "The label of the form field"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the form field"
+        },
+        "questionOptions": {
+          "$ref": "#/definitions/formQuestionOptions",
+          "description": "Options specific to the question"
+        },
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the form field"
+        },
+        "uuid": {
+          "type": "string",
+          "description": "Unique identifier of the form field (optional)"
+        },
+        "groupId": {
+          "type": "string",
+          "description": "Identifier of the group this field belongs to (optional)"
+        },
+        "questions": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/formField" },
+          "description": "Array of sub-questions if this question is a group"
+        },
+        "value": {
+          "description": "Value of the form field"
+        },
+        "hide": {
+          "$ref": "#/definitions/hideProps",
+          "description": "Properties to determine if the field should be hidden"
+        },
+        "isHidden": {
+          "type": "boolean",
+          "description": "Determines if the field is hidden"
+        },
+        "isParentHidden": {
+          "type": "boolean",
+          "description": "Determines if the parent of this question is hidden"
+        },
+        "fieldDependants": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Identifiers of fields dependent on this field"
+        },
+        "pageDependants": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Identifiers of pages dependent on this field"
+        },
+        "sectionDependants": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Identifiers of sections dependent on this field"
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Determines if the field is required"
+        },
+        "unspecified": {
+          "type": "boolean",
+          "description": "Determines if the field value is unspecified"
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Determines if the field is disabled"
+        },
+        "readonly": {
+          "oneOf": [
+            { "type": "string", "description": "Readonly status as a string" },
+            { "type": "boolean", "description": "Readonly status as a boolean" }
+          ],
+          "description": "Determines if the field is readonly"
+        },
+        "inlineRendering": {
+          "type": "string",
+          "enum": ["single-line", "multiline", "automatic"],
+          "description": "Rendering type for inline display"
+        },
+        "validators": {
+          "type": "array",
+          "items": { "type": "object" },
+          "description": "Array of validators for the field"
+        },
+        "behaviours": {
+          "type": "array",
+          "items": { "type": "object" },
+          "description": "Array of behaviours for the field"
+        },
+        "questionInfo": {
+          "type": "string",
+          "description": "Additional information about the question"
+        },
+        "constrainMaxWidth": {
+          "type": "boolean",
+          "description": "Determines if the field should constrain its maximum width"
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "concept": {
+              "$ref": "#/definitions/openmrsResource",
+              "description": "Concept related to the form field"
+            }
+          },
+          "additionalProperties": true,
+          "description": "Additional metadata for the field"
+        },
+        "historicalExpression": {
+          "type": "string",
+          "description": "JavaScript expression that resolves to a value from a previous encounter, if available. This value can be used to answer the question."
+        }
+      },
+      "required": ["label", "type", "questionOptions", "id"],
+      "description": "Definition of a form field"
+    },    
+    "renderType": {
+      "type": "string",
+      "enum": [
+        "select",
+        "text",
+        "date",
+        "number",
+        "checkbox",
+        "datetime",
+        "radio",
+        "ui-select-extended",
+        "repeating",
+        "group",
+        "content-switcher",
+        "encounter-location",
+        "encounter-provider",
+        "textarea",
+        "toggle",
+        "fixed-value",
+        "file"
+      ]
+    },
+    "formQuestionOptions": {
+      "type": "object",
+      "properties": {
+        "extensionId": { "type": "string" },
+        "extensionSlotName": { "type": "string" },
+        "rendering": { "$ref": "#/definitions/renderType" },
+        "concept": { "type": "string" },
+        "max": { "type": "string" },
+        "min": { "type": "string" },
+        "isTransient": { "type": "boolean" },
+        "maxLength": { "type": "string" },
+        "minLength": { "type": "string" },
+        "showDate": { "type": "string" },
+        "answers": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "weeksList": { "type": "string" },
+        "locationTag": { "type": "string" },
+        "rows": { "type": "integer" },
+        "toggleOptions": {
+          "type": "object",
+          "properties": {
+            "labelTrue": { "type": "string" },
+            "labelFalse": { "type": "string" }
+          }
+        },
+        "repeatOptions": {
+          "type": "object",
+          "properties": {
+            "addText": { "type": "string" },
+            "limit": { "type": "string" },
+            "limitExpression": { "type": "string" },
+            "isCloned": { "type": "boolean" }
+          }
+        },
+        "defaultValue": {},
+        "calculate": {
+          "type": "object",
+          "properties": {
+            "calculateExpression": { "type": "string" }
+          }
+        },
+        "isDateTime": {
+          "type": "object",
+          "properties": {
+            "labelTrue": { "type": "boolean" },
+            "labelFalse": { "type": "boolean" }
+          }
+        },
+        "usePreviousValueDisabled": { "type": "boolean" },
+        "allowedFileTypes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "allowMultiple": { "type": "boolean" },
+        "datasource": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "config": { "type": "object" }
+          }
+        },
+        "isSearchable": { "type": "boolean" }
+      }
+    },
+    "openmrsResource": {
+      "type": "object",
+      "properties": {
+        "uuid": { "type": "string" },
+        "display": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "openmrsEncounter": {
+      "type": "object",
+      "properties": {
+        "uuid": { "type": "string" },
+        "encounterDatetime": { "anyOf": [{ "type": "string" }, { "type": "string" }] },
+        "patient": { "anyOf": [{ "$ref": "#/definitions/openmrsResource" }, { "type": "string" }] },
+        "location": { "anyOf": [{ "$ref": "#/definitions/openmrsResource" }, { "type": "string" }] },
+        "encounterType": { "anyOf": [{ "$ref": "#/definitions/openmrsResource" }, { "type": "string" }] },
+        "obs": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/openmrsObs" }
+        },
+        "orders": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/openmrsResource" }
+        },
+        "voided": { "type": "boolean" },
+        "visit": { "anyOf": [{ "$ref": "#/definitions/openmrsResource" }, { "type": "string" }] },
+        "encounterProviders": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "form": {
+          "type": "object",
+          "properties": {
+            "uuid": { "type": "string" }
+          },
+          "additionalProperties": true
+        }
+      }
+    },
+    "openmrsObs": {
+      "type": "object",
+      "properties": {
+        "uuid": { "type": "string" },
+        "display": { "type": "string" },
+        "concept": { "$ref": "#/definitions/openmrsResource" },
+        "obsDatetime": { "anyOf": [{ "type": "string" }, { "type": "string" }] },
+        "obsGroup": { "$ref": "#/definitions/openmrsObs" },
+        "groupMembers": { "type": "array", "items": { "$ref": "#/definitions/openmrsObs" } },
+        "comment": { "type": "string" },
+        "location": { "$ref": "#/definitions/openmrsResource" },
+        "order": { "$ref": "#/definitions/openmrsResource" },
+        "encounter": { "$ref": "#/definitions/openmrsResource" },
+        "voided": { "type": "boolean" },
+        "value": {},
+        "formFieldPath": { "type": "string" },
+        "formFieldNamespace": { "type": "string" },
+        "status": { "type": "string" },
+        "interpretation": { "type": "string" }
+      },
+      "required": ["concept", "obsDatetime", "location", "order", "encounter", "voided", "value", "formFieldPath", "formFieldNamespace", "status", "interpretation"]
+    }    
+  }
 }
