@@ -208,7 +208,7 @@
       "description": "Form options"
     }
   },
-  "required": ["name", "version", "pages", "encounterType"],
+  "required": ["name", "pages"],
   "definitions": {
     "formSchemaWithoutPostSubmissionActions": {
       "type": "object",
