@@ -27,97 +27,103 @@
     "pages": {
       "type": "array",
       "description": "An array of all the pages in this form. Pages are the the basic unit of a form. They are used to group related sections and questions together.",
-      "properties": {
-        "label": {
-          "type": "string",
-          "description": "The label of the page"
-        },
-        "sections": {
-          "type": "array",
-          "description": "An array of all the sections of the page. Sections are used to group related questions together.",
-          "properties": {
-            "isExpanded": {
-              "oneOf": [{ "type": "boolean" }, { "type": "string" }],
-              "description": "Either a string or a boolean. \nIf a string value, 'true' means this section should always be rendered in an expanded state, whereas 'false' means it should be rendered in a collapsed state. \nIf a boolean value, true means this section should always be rendered in an expanded state, whereas false means it should be rendered in a collapsed state."
-            },
-            "label": {
-              "type": "string",
-              "description": "The label of the section"
-            },
-            "questions": {
-              "type": "array",
-              "description": "An array of all the questions in a section. Questions make up the fields of the form",
-              "items": { "$ref": "#/definitions/formField" }
-            },
-            "isHidden": {
-              "type": "boolean",
-              "description": "Determines if the section is hidden"
-            },
-            "isParentHidden": {
-              "type": "boolean",
-              "description": "Determines if the parent of the section is hidden"
-            },
-            "inlineRendering": {
-              "type": "string",
-              "enum": ["single-line", "multiline", "automatic"],
-              "description": "Inline rendering options"
-            },
-            "readonly": {
-              "oneOf": [
-                { "type": "string" },
-                { "type": "boolean" }
-              ],
-              "description": "Read-only flag"
-            },
-            "reference": {
-              "$ref": "#/definitions/formReference"
-            },
-            "hide": { "$ref": "#/definitions/hideProps" }
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "The label of the page"
           },
-          "required": ["label", "questions"]
-        },
-        "isHidden": {
-          "type": "boolean",
-          "description": "Determines if the page is hidden"
-        },
-        "hide": { "$ref": "#/definitions/hideProps" },
-        "isSubform": {
-          "type": "boolean",
-          "description": "Determines if the page is a subform"
-        },
-        "inlineRendering": {
-          "type": "string",
-          "enum": ["single-line", "multiline", "automatic"],
-          "description": "Inline rendering options"
-        },
-        "readonly": {
-          "oneOf": [
-            { "type": "string" },
-            { "type": "boolean" }
-          ],
-          "description": "Read-only flag"
-        },
-        "subform": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string",
-              "description": "Name of the subform"
+          "sections": {
+            "type": "array",
+            "description": "An array of all the sections of the page. Sections are used to group related questions together.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "isExpanded": {
+                  "oneOf": [{ "type": "boolean" }, { "type": "string" }],
+                  "description": "Either a string or a boolean. \nIf a string value, 'true' means this section should always be rendered in an expanded state, whereas 'false' means it should be rendered in a collapsed state. \nIf a boolean value, true means this section should always be rendered in an expanded state, whereas false means it should be rendered in a collapsed state."
+                },
+                "label": {
+                  "type": "string",
+                  "description": "The label of the section"
+                },
+                "questions": {
+                  "type": "array",
+                  "description": "An array of all the questions in a section. Questions make up the fields of the form",
+                  "items": { "$ref": "#/definitions/formField" }
+                },
+                "isHidden": {
+                  "type": "boolean",
+                  "description": "Determines if the section is hidden"
+                },
+                "isParentHidden": {
+                  "type": "boolean",
+                  "description": "Determines if the parent of the section is hidden"
+                },
+                "inlineRendering": {
+                  "type": "string",
+                  "enum": ["single-line", "multiline", "automatic"],
+                  "description": "Inline rendering options"
+                },
+                "readonly": {
+                  "oneOf": [
+                    { "type": "string" },
+                    { "type": "boolean" }
+                  ],
+                  "description": "Read-only flag"
+                },
+                "reference": {
+                  "$ref": "#/definitions/formReference"
+                },
+                "hide": { "$ref": "#/definitions/hideProps" }
+              }    
             },
-            "package": {
-              "type": "string",
-              "description": "Package of the subform"
-            },
-            "behaviours": {
-              "type": "array",
-              "items": {}
-            },
-            "form": {
-              "$ref": "#/definitions/formSchemaWithoutPostSubmissionActions"
-            }
+            "required": ["label", "questions"]
           },
-          "description": "Subform information"
-        }
+          "isHidden": {
+            "type": "boolean",
+            "description": "Determines if the page is hidden"
+          },
+          "hide": { "$ref": "#/definitions/hideProps" },
+          "isSubform": {
+            "type": "boolean",
+            "description": "Determines if the page is a subform"
+          },
+          "inlineRendering": {
+            "type": "string",
+            "enum": ["single-line", "multiline", "automatic"],
+            "description": "Inline rendering options"
+          },
+          "readonly": {
+            "oneOf": [
+              { "type": "string" },
+              { "type": "boolean" }
+            ],
+            "description": "Read-only flag"
+          },
+          "subform": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Name of the subform"
+              },
+              "package": {
+                "type": "string",
+                "description": "Package of the subform"
+              },
+              "behaviours": {
+                "type": "array",
+                "items": {}
+              },
+              "form": {
+                "$ref": "#/definitions/formSchemaWithoutPostSubmissionActions"
+              }
+            },
+            "description": "Subform information"
+          }
+        } 
       },
       "required": ["label", "sections"]
     },
