@@ -121,26 +121,26 @@
         },
         "required": ["component", "name"]
       }
+    },
+    "modals": {
+      "type": "array",
+      "description": "An array of all modals supported by this frontend module. Modals are launched by name using the `showModal` function.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of this extension. This is used to refer to the extension in configuration."
+          },
+          "component": {
+            "type": "string",
+            "description": "The name of the component exported by this frontend module."
+          },
+          "required": ["component", "name"]
+        }
     }
   },
-  "modals": {
-    "type": "array",
-    "description": "An array of all modals supported by this frontend module. Modals are launched by name using the `showModal` function.",
-    "items": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "The name of this extension. This is used to refer to the extension in configuration."
-        },
-        "component": {
-          "type": "string",
-          "description": "The name of the component exported by this frontend module."
-        },
-        "required": ["component", "name"]
-      }
-    }
   },
   "additionalProperties": false,
   "additionalItems": false
