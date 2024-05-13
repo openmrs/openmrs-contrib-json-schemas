@@ -30,7 +30,14 @@
             "description": "The name of the component exported by this frontend module."
           },
           "route": {
-            "oneOf": [{ "type": "string" }, { "type": "boolean" }],
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
             "description": "Either a string or a boolean.\n If a string value, this is used to indicate that this page should be rendered. For example, \"name\" will match when the current page is ${window.spaBase}/name.\n If a boolean, this either indicates that the component should always be rendered or should never be rendered."
           },
           "routeRegex": {
@@ -40,8 +47,15 @@
           },
           "privilege": {
             "oneOf": [
-              { "type": "array", "items": { "type": "string" } },
-              { "type": "string" }
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "type": "string"
+              }
             ],
             "description": "One or more privileges that a user must have in order for this page to be available."
           },
@@ -61,8 +75,21 @@
             "minimum": 0
           }
         },
-        "required": ["component"],
-        "oneOf": [{ "required": ["route"] }, { "required": ["routeRegex"] }]
+        "required": [
+          "component"
+        ],
+        "oneOf": [
+          {
+            "required": [
+              "route"
+            ]
+          },
+          {
+            "required": [
+              "routeRegex"
+            ]
+          }
+        ]
       }
     },
     "extensions": {
@@ -90,8 +117,15 @@
           },
           "privilege": {
             "oneOf": [
-              { "type": "array", "items": { "type": "string" } },
-              { "type": "string" }
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "type": "string"
+              }
             ],
             "description": "One or more privileges that a user must have in order for this extension to be available."
           },
@@ -119,7 +153,10 @@
             "description": "The name of a feature flag that is defined in the system"
           }
         },
-        "required": ["component", "name"]
+        "required": [
+          "component",
+          "name"
+        ]
       }
     },
     "modals": {
@@ -136,11 +173,14 @@
           "component": {
             "type": "string",
             "description": "The name of the component exported by this frontend module."
-          },
-          "required": ["component", "name"]
-        }
+          }
+        },
+        "required": [
+          "component",
+          "name"
+        ]
+      }
     }
-  },
   },
   "additionalProperties": false,
   "additionalItems": false
