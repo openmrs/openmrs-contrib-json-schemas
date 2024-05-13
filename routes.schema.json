@@ -20,7 +20,7 @@
     },
     "pages": {
       "type": "array",
-      "description": "An array of all pages supported by this frontend module. Pages are automatically mounted based on a route.",
+      "description": "An array of all pages provided by this frontend module. Pages are automatically mounted based on a route.",
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -94,7 +94,7 @@
     },
     "extensions": {
       "type": "array",
-      "description": "An array of all extensions supported by this frontend module. Extensions can be mounted in extension slots, either via declarations in this file or configuration.",
+      "description": "An array of all extensions provided by this frontend module. Extensions can be mounted in extension slots, either via declarations in this file or configuration.",
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -161,14 +161,14 @@
     },
     "modals": {
       "type": "array",
-      "description": "An array of all modals supported by this frontend module. Modals are launched by name using the `showModal` function.",
+      "description": "An array of all modals provided by this frontend module. Modals are launched by name using the `showModal` function.",
       "items": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "name": {
             "type": "string",
-            "description": "The name of this extension. This is used to refer to the extension in configuration."
+            "description": "The name of this modal. This is used to launch the modal."
           },
           "component": {
             "type": "string",
@@ -178,6 +178,56 @@
         "required": [
           "component",
           "name"
+        ]
+      }
+    },
+    "workspaces": {
+      "type": "array",
+      "description": "An array of all workspaces provided by this frontend module. Modals are launched by name using the `showModal` function.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of this worspace. This is used to launch the workspace."
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the workspace. This will be looked up as a key in the translations of the module defining the workspace."
+          },
+          "component": {
+            "type": "string",
+            "description": "The name of the component exported by this frontend module."
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of the workspace. Only one of each \"type\" of workspace is allowed to be open at a time. The default is \"form\". If the right sidebar is in use, then the type determines which right sidebar icon corresponds to the workspace."
+          },
+          "canHide": {
+            "type": "boolean",
+            "description": "Controls whether the workspace, once opened, can be hidden into the side rail."
+          },
+          "canMaximize": {
+            "type": "boolean",
+            "description": "Controls whether the workspace can be displayed in full-screen mode on a desktop."
+          },
+          "width": {
+            "type": "string",
+            "enum": ["narrow", "wider"],
+            "description": "Controls the \"width\" of the workspace. The default is \"narrow\" and this should only be changed to \"wider\" if the workspace itself has internal navigation, like the form editor."
+          },
+          "preferredWindowSize": {
+            "type": "string",
+            "enum": ["maximized", "hidden", "normal"],
+            "description": "Controls the default \"mode\" that the workspace opens in, either \"maximized\", \"hidden\", or \"normal\"."
+          }
+        },
+        "required": [
+          "name",
+          "title",
+          "component",
+          "type"
         ]
       }
     }
