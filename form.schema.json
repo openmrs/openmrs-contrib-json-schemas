@@ -340,8 +340,35 @@
           "description": "Identifiers of sections dependent on this field"
         },
         "required": {
-          "type": "boolean",
-          "description": "Determines if the field is required"
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "referenceQuestionId": {
+                  "type": "string"
+                },
+                "referenceQuestionAnswers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": ["type", "referenceQuestionId", "referenceQuestionAnswers"]
+            }
+          ]
         },
         "unspecified": {
           "type": "boolean",
