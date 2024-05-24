@@ -18,6 +18,29 @@
         "type": "string"
       }
     },
+    "optionalBackendDependencies": {
+      "type": "object",
+      "description": "A list of backend modules that may enable optional functionality in this frontend module if available and the corresponding required versions."
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "version": {
+                "type": "string",
+                "description": "A SemVer range specifying the allowed versions"
+              }
+            }
+            "required": [
+              "version"
+            ]
+          }
+        ]
+      }
+    },
     "pages": {
       "type": "array",
       "description": "An array of all pages provided by this frontend module. Pages are automatically mounted based on a route.",
