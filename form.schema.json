@@ -67,17 +67,14 @@
                   "description": "Inline rendering options"
                 },
                 "readonly": {
-                  "oneOf": [
-                    { "type": "string" },
-                    { "type": "boolean" }
-                  ],
+                  "oneOf": [{ "type": "string" }, { "type": "boolean" }],
                   "description": "Read-only flag"
                 },
                 "reference": {
                   "$ref": "#/definitions/formReference"
                 },
                 "hide": { "$ref": "#/definitions/hideProps" }
-              }    
+              }
             },
             "required": ["label", "questions"]
           },
@@ -96,10 +93,7 @@
             "description": "Inline rendering options"
           },
           "readonly": {
-            "oneOf": [
-              { "type": "string" },
-              { "type": "boolean" }
-            ],
+            "oneOf": [{ "type": "string" }, { "type": "boolean" }],
             "description": "Read-only flag"
           },
           "subform": {
@@ -123,7 +117,7 @@
             },
             "description": "Subform information"
           }
-        } 
+        }
       },
       "required": ["label", "sections"]
     },
@@ -186,10 +180,7 @@
       "description": "Default page of the form"
     },
     "readonly": {
-      "oneOf": [
-        { "type": "string" },
-        { "type": "boolean" }
-      ],
+      "oneOf": [{ "type": "string" }, { "type": "boolean" }],
       "description": "Read-only flag"
     },
     "markdown": {
@@ -212,6 +203,36 @@
         "usePreviousValueDisabled": { "type": "boolean" }
       },
       "description": "Form options"
+    },
+    "resultType": {
+      "type": "string",
+      "enum": ["warning", "error"],
+      "description": "Type of validation result"
+    },
+    "errCode": {
+      "type": "string",
+      "description": "Error code (optional)"
+    },
+    "message": {
+      "type": "string",
+      "description": "Validation message"
+    },
+    "answerOptions": {
+      "type": "object",
+      "properties": {
+        "hide": { "$ref": "#/definitions/hideProps" },
+        "disable": { "$ref": "#/definitions/disableProps" },
+        "label": { "type": "string" },
+        "concept": { "type": "string" }
+      }
+    },
+    "repeatOptions": {
+      "type": "object",
+      "properties": {
+        "addText": { "type": "string" },
+        "limit": { "type": "string" },
+        "limitExpression": { "type": "string" }
+      }
     }
   },
   "required": ["name", "pages"],
@@ -236,15 +257,15 @@
         },
         "encounterType": { "type": "string" },
         "encounter": {
-          "oneOf": [
-            { "type": "string" },
-            { "type": "object" } 
-          ]
+          "oneOf": [{ "type": "string" }, { "type": "object" }]
         },
         "allowUnspecifiedAll": { "type": "boolean" },
         "defaultPage": { "type": "string" },
         "readonly": { "type": ["string", "boolean"] },
-        "inlineRendering": { "type": "string", "enum": ["single-line", "multiline", "automatic"] },
+        "inlineRendering": {
+          "type": "string",
+          "enum": ["single-line", "multiline", "automatic"]
+        },
         "markdown": {},
         "formOptions": {
           "type": "object",
@@ -254,7 +275,14 @@
         },
         "version": { "type": "string" }
       },
-      "required": ["name", "pages", "processor", "uuid", "referencedForms", "encounterType"]
+      "required": [
+        "name",
+        "pages",
+        "processor",
+        "uuid",
+        "referencedForms",
+        "encounterType"
+      ]
     },
     "formReference": {
       "type": "object",
@@ -366,7 +394,11 @@
                   }
                 }
               },
-              "required": ["type", "referenceQuestionId", "referenceQuestionAnswers"]
+              "required": [
+                "type",
+                "referenceQuestionId",
+                "referenceQuestionAnswers"
+              ]
             }
           ]
         },
@@ -377,6 +409,10 @@
         "disabled": {
           "type": "boolean",
           "description": "Determines if the field is disabled"
+        },
+        "isDisabled": {
+          "type": "boolean",
+          "description": "Specifies whether the field should be conditionally disabled based on a certain expression."
         },
         "readonly": {
           "oneOf": [
@@ -426,7 +462,7 @@
       },
       "required": ["label", "type", "questionOptions", "id"],
       "description": "Definition of a form field"
-    },    
+    },
     "renderType": {
       "type": "string",
       "enum": [
@@ -527,10 +563,27 @@
       "type": "object",
       "properties": {
         "uuid": { "type": "string" },
-        "encounterDatetime": { "anyOf": [{ "type": "string" }, { "type": "string" }] },
-        "patient": { "anyOf": [{ "$ref": "#/definitions/openmrsResource" }, { "type": "string" }] },
-        "location": { "anyOf": [{ "$ref": "#/definitions/openmrsResource" }, { "type": "string" }] },
-        "encounterType": { "anyOf": [{ "$ref": "#/definitions/openmrsResource" }, { "type": "string" }] },
+        "encounterDatetime": {
+          "anyOf": [{ "type": "string" }, { "type": "string" }]
+        },
+        "patient": {
+          "anyOf": [
+            { "$ref": "#/definitions/openmrsResource" },
+            { "type": "string" }
+          ]
+        },
+        "location": {
+          "anyOf": [
+            { "$ref": "#/definitions/openmrsResource" },
+            { "type": "string" }
+          ]
+        },
+        "encounterType": {
+          "anyOf": [
+            { "$ref": "#/definitions/openmrsResource" },
+            { "type": "string" }
+          ]
+        },
         "obs": {
           "type": "array",
           "items": { "$ref": "#/definitions/openmrsObs" }
@@ -540,7 +593,12 @@
           "items": { "$ref": "#/definitions/openmrsResource" }
         },
         "voided": { "type": "boolean" },
-        "visit": { "anyOf": [{ "$ref": "#/definitions/openmrsResource" }, { "type": "string" }] },
+        "visit": {
+          "anyOf": [
+            { "$ref": "#/definitions/openmrsResource" },
+            { "type": "string" }
+          ]
+        },
         "encounterProviders": {
           "type": "array",
           "items": { "type": "object" }
@@ -560,9 +618,14 @@
         "uuid": { "type": "string" },
         "display": { "type": "string" },
         "concept": { "$ref": "#/definitions/openmrsResource" },
-        "obsDatetime": { "anyOf": [{ "type": "string" }, { "type": "string" }] },
+        "obsDatetime": {
+          "anyOf": [{ "type": "string" }, { "type": "string" }]
+        },
         "obsGroup": { "$ref": "#/definitions/openmrsObs" },
-        "groupMembers": { "type": "array", "items": { "$ref": "#/definitions/openmrsObs" } },
+        "groupMembers": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/openmrsObs" }
+        },
         "comment": { "type": "string" },
         "location": { "$ref": "#/definitions/openmrsResource" },
         "order": { "$ref": "#/definitions/openmrsResource" },
@@ -574,7 +637,19 @@
         "status": { "type": "string" },
         "interpretation": { "type": "string" }
       },
-      "required": ["concept", "obsDatetime", "location", "order", "encounter", "voided", "value", "formFieldPath", "formFieldNamespace", "status", "interpretation"]
-    }    
+      "required": [
+        "concept",
+        "obsDatetime",
+        "location",
+        "order",
+        "encounter",
+        "voided",
+        "value",
+        "formFieldPath",
+        "formFieldNamespace",
+        "status",
+        "interpretation"
+      ]
+    }
   }
 }
