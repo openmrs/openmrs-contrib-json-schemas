@@ -302,8 +302,7 @@
           "type": "string",
           "description": "JavaScript expression that determines whether a page or section or question should be hidden or not. If the expression evaluates to true, the page or section or question is hidden. If it evaluates to false, the page or section or question is shown."
         }
-      },
-      "required": ["hideWhenExpression"]
+      }
     },
     "formField": {
       "type": "object",
@@ -482,7 +481,13 @@
         "textarea",
         "toggle",
         "fixed-value",
-        "file"
+        "file",
+        "drug",
+        "multiCheckbox",
+        "encounter-role",
+        "problem",
+        "workspace-launcher",
+        "select-concept-answers"
       ]
     },
     "formQuestionOptions": {
@@ -498,11 +503,29 @@
         "maxLength": { "type": "string" },
         "minLength": { "type": "string" },
         "showDate": { "type": "string" },
+        "showDateOptions": {
+          "type": "object",
+          "properties": {
+            "validators": {"items": { "type": "object" }}
+          }
+        },
+        "showCommentOptions": {
+          "type": "object",
+          "properties": {
+            "validators": { "items": { "type": "object" } }
+          }
+        },
+        "showComment": { "type": "string" },
         "answers": {
           "type": "array",
           "items": { "type": "object" }
         },
-        "weeksList": { "type": "string" },
+        "weeksList": { 
+          "oneOf": [
+            { "type": "string" },
+            { "type": "array", "items": { "oneOf": [{ "type": "string" }, { "type": "number" }] } }
+          ]
+        },
         "locationTag": { "type": "string" },
         "rows": { "type": "integer" },
         "toggleOptions": {
@@ -548,7 +571,16 @@
             "config": { "type": "object" }
           }
         },
-        "isSearchable": { "type": "boolean" }
+        "isSearchable": { "type": "boolean" },
+        "workspaceName": { "type": "string" },
+        "buttonLabel": { "type": "string" },
+        "identifierType": { "type": "string" },
+        "orderSettingUuid": { "type": "string" },
+        "orderType": { "type": "string" },
+        "programUuid": { "type": "string" },
+        "workflowUuid": { "type": "string" },
+        "comment": { "type": "string" },
+        "selectableOrders": { "type": "array", "items": { "type": "object" } }
       }
     },
     "openmrsResource": {
