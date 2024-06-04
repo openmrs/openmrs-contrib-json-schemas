@@ -20,7 +20,7 @@
     },
     "optionalBackendDependencies": {
       "type": "object",
-      "description": "A list of backend modules that may enable optional functionality in this frontend module if available and the corresponding required versions."
+      "description": "A list of backend modules that may enable optional functionality in this frontend module if available and the corresponding required versions.",
       "additionalProperties": {
         "oneOf": [
           {
