@@ -32,8 +32,31 @@
               "version": {
                 "type": "string",
                 "description": "A SemVer range specifying the allowed versions"
+              },
+              "feature": {
+                "type": "object",
+                "description": "Details of the feature flag to be registered and enabled if this optional dependency is available.",
+                "properties": {
+                  "flagName": {
+                    "type": "string",
+                    "description": "A code-friendly name for the flag, which will be used to reference it in code"
+                  },
+                  "label": {
+                    "type": "string",
+                    "description": "A human-friendly name for the flag, which will be used when it needs to be displayed"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "An explanation of what the flag does, which will be displayed in the Implementer Tools"
+                  }
+                },
+                "required": [
+                  "flagName",
+                  "label",
+                  "description"
+                ]
               }
-            }
+            },
             "required": [
               "version"
             ]
