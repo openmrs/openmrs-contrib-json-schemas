@@ -260,13 +260,21 @@
           },
           "width": {
             "type": "string",
-            "enum": ["narrow", "wider"],
-            "description": "Controls the \"width\" of the workspace. The default is \"narrow\" and this should only be changed to \"wider\" if the workspace itself has internal navigation, like the form editor."
+            "enum": ["narrow", "wider", "extra-wide"],
+            "description": "Controls the \"width\" of the workspace. The default is \"narrow\" and this should only be changed to \"wider\" if the workspace itself has internal navigation, like the form editor. The width \"extra-wide\" is for workspaces that contain their own sidebar."
           },
           "preferredWindowSize": {
             "type": "string",
             "enum": ["maximized", "hidden", "normal"],
             "description": "Controls the default \"mode\" that the workspace opens in, either \"maximized\", \"hidden\", or \"normal\"."
+          },
+          "hasOwnSidebar": {
+            "type": "boolean",
+            "description": "Controls whether the workspace has its own sidebar. If true, the sidebar will be displayed when the workspace is open."
+          },
+          "sidebarFamily": {
+            "type": "string",
+            "description": "Sidebars have icons that representing workspaces. The sidebar family is the name of the sidebar that should contain the icon for this workspace. This is generally only needed if `hasOwnSidebar` is true, in which case this is the name of that sidebar. If multiple workspaces have `hasOwnSidebar` set to true and the same family name, then the sidebar within the workspace area will have icons for each of those workspaces."
           }
         },
         "required": [
