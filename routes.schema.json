@@ -261,7 +261,7 @@
           "width": {
             "type": "string",
             "enum": ["narrow", "wider", "extra-wide"],
-            "description": "Controls the \"width\" of the workspace. The default is \"narrow\" and this should only be changed to \"wider\" if the workspace itself has internal navigation, like the form editor. The width \"extra-wide\" is for workspaces that contain their own sidebar."
+            "description": "Controls the width of the workspace. The default is \"narrow\" and this should only be changed to \"wider\" if the workspace itself has internal navigation, like the form editor. The width \"extra-wide\" is for workspaces that contain their own sidebar."
           },
           "preferredWindowSize": {
             "type": "string",
