@@ -119,6 +119,10 @@
             "type": "integer",
             "description": "Determines the order in which the DOM element rendered this page is rendered. This should be used sparingly, but is sometimes necessary to ensure the resulting mark-up is correct.",
             "minimum": 0
+          },
+          "featureFlag": {
+            "type": "string",
+            "description": "The name of a feature flag that is defined in the system"
           }
         },
         "required": [
@@ -204,6 +208,33 @@
           "name"
         ]
       }
+    },
+    "featureFlags": {
+      "type": "array",
+      "description": "An array of feature flags declared by this module.",
+      "items":{
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "flagName": {
+            "type": "string",
+            "description": "A code-friendly name for the flag, which will be used to reference it in code"
+          },
+          "label": {
+            "type": "string",
+            "description": "A human-friendly name which will be displayed in the Implementer Tools"
+          },
+          "description": {
+            "type": "string",
+            "description": "An explanation of what the flag does, which will be displayed in the Implementer Tools"
+          }
+        }
+      },
+      "required": [
+        "flagName",
+        "label",
+        "description"
+      ]
     },
     "modals": {
       "type": "array",
