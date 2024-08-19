@@ -221,7 +221,6 @@
       "type": "object",
       "properties": {
         "hide": { "$ref": "#/definitions/hideProps" },
-        "disable": { "$ref": "#/definitions/disableProps" },
         "label": { "type": "string" },
         "concept": { "type": "string" }
       }
