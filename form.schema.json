@@ -160,7 +160,7 @@
             "description": "Alias of the referenced form"
           }
         },
-        "required": ["formName", "alias"]
+        "required": ["formName"]
       },
       "description": "Array of referenced forms"
     },
@@ -251,7 +251,7 @@
               "formName": { "type": "string" },
               "alias": { "type": "string" }
             },
-            "required": ["formName", "alias"]
+            "required": ["formName"]
           }
         },
         "encounterType": { "type": "string" },
@@ -458,7 +458,7 @@
           "description": "JavaScript expression that resolves to a value from a previous encounter, if available. This value can be used to answer the question."
         }
       },
-      "required": ["label", "type", "questionOptions", "id"],
+      "required": ["questionOptions", "id"],
       "description": "Definition of a form field"
     },
     "renderType": {
@@ -486,7 +486,8 @@
         "encounter-role",
         "problem",
         "workspace-launcher",
-        "select-concept-answers"
+        "select-concept-answers",
+        "markdown"
       ]
     },
     "formQuestionOptions": {
