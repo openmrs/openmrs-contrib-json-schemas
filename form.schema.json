@@ -530,7 +530,7 @@
           ]
         },
         "locationTag": { "type": "string" },
-        "rows": { "oneOf": [{ "type": "string" }, { "type": "number" }] },
+        "rows": { "oneOf": [{ "type": "string" }, { "type": "integer" }] },
         "toggleOptions": {
           "type": "object",
           "properties": {
