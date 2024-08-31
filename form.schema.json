@@ -139,7 +139,10 @@
       "description": "Determines the version of the form"
     },
     "availableIntents": {
-      "type": "string",
+      "oneOf": [
+        { "type": "string" }, 
+        { "$ref": "#/definitions/availableIntents" }
+      ],
       "description": "Determines the intents available for the form"
     },
     "inlineRendering": {
@@ -527,7 +530,7 @@
           ]
         },
         "locationTag": { "type": "string" },
-        "rows": { "type": "integer" },
+        "rows": { "oneOf": [{ "type": "string" }, { "type": "number" }] },
         "toggleOptions": {
           "type": "object",
           "properties": {
@@ -682,6 +685,16 @@
         "status",
         "interpretation"
       ]
+    },
+    "availableIntents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "intent": { "type": "string" },
+          "display": { "type": "string" }
+        }
+      }
     }
   }
 }
