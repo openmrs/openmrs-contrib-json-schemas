@@ -140,7 +140,7 @@
     },
     "availableIntents": {
       "oneOf": [
-        { "type": "string" }, 
+        { "type": "string" },
         { "$ref": "#/definitions/availableIntents" }
       ],
       "description": "Determines the intents available for the form"
@@ -472,6 +472,7 @@
         "date",
         "number",
         "checkbox",
+        "checkbox-searchable",
         "datetime",
         "radio",
         "ui-select-extended",
@@ -509,7 +510,7 @@
         "showDateOptions": {
           "type": "object",
           "properties": {
-            "validators": {"items": { "type": "object" }}
+            "validators": { "items": { "type": "object" } }
           }
         },
         "showCommentOptions": {
@@ -523,10 +524,13 @@
           "type": "array",
           "items": { "type": "object" }
         },
-        "weeksList": { 
+        "weeksList": {
           "oneOf": [
             { "type": "string" },
-            { "type": "array", "items": { "oneOf": [{ "type": "string" }, { "type": "number" }] } }
+            {
+              "type": "array",
+              "items": { "oneOf": [{ "type": "string" }, { "type": "number" }] }
+            }
           ]
         },
         "locationTag": { "type": "string" },
