@@ -50,16 +50,10 @@
                     "description": "An explanation of what the flag does, which will be displayed in the Implementer Tools"
                   }
                 },
-                "required": [
-                  "flagName",
-                  "label",
-                  "description"
-                ]
+                "required": ["flagName", "label", "description"]
               }
             },
-            "required": [
-              "version"
-            ]
+            "required": ["version"]
           }
         ]
       }
@@ -125,19 +119,13 @@
             "description": "The name of a feature flag that is defined in the system"
           }
         },
-        "required": [
-          "component"
-        ],
+        "required": ["component"],
         "oneOf": [
           {
-            "required": [
-              "route"
-            ]
+            "required": ["route"]
           },
           {
-            "required": [
-              "routeRegex"
-            ]
+            "required": ["routeRegex"]
           }
         ]
       }
@@ -203,16 +191,13 @@
             "description": "The name of a feature flag that is defined in the system"
           }
         },
-        "required": [
-          "component",
-          "name"
-        ]
+        "required": ["component", "name"]
       }
     },
     "featureFlags": {
       "type": "array",
       "description": "An array of feature flags declared by this module.",
-      "items":{
+      "items": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -230,11 +215,7 @@
           }
         }
       },
-      "required": [
-        "flagName",
-        "label",
-        "description"
-      ]
+      "required": ["flagName", "label", "description"]
     },
     "modals": {
       "type": "array",
@@ -252,10 +233,7 @@
             "description": "The name of the component exported by this frontend module."
           }
         },
-        "required": [
-          "component",
-          "name"
-        ]
+        "required": ["component", "name"]
       }
     },
     "workspaces": {
@@ -299,21 +277,32 @@
             "enum": ["maximized", "hidden", "normal"],
             "description": "Controls the default \"mode\" that the workspace opens in, either \"maximized\", \"hidden\", or \"normal\"."
           },
-          "hasOwnSidebar": {
-            "type": "boolean",
-            "description": "Controls whether the workspace has its own sidebar. If true, the sidebar will be displayed when the workspace is open."
-          },
-          "sidebarFamily": {
-            "type": "string",
-            "description": "Sidebars have icons that representing workspaces. The sidebar family is the name of the sidebar that should contain the icon for this workspace. This is generally only needed if `hasOwnSidebar` is true, in which case this is the name of that sidebar. If multiple workspaces have `hasOwnSidebar` set to true and the same family name, then the sidebar within the workspace area will have icons for each of those workspaces."
+          "groups": {
+            "type": "array",
+            "description": "An array of workspace group names that this workspace belongs to.",
+            "default": []
           }
         },
-        "required": [
-          "name",
-          "title",
-          "component",
-          "type"
-        ]
+        "required": ["name", "title", "component", "type"]
+      }
+    },
+    "workspaceGroups": {
+      "type": "array",
+      "description": "An array of all workspace groups provided by this frontend module. Workspace groups are used to group workspaces together in the workspace area.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of this workspace group. This is used to refer to the group in configuration."
+          },
+          "members": {
+            "type": "array",
+            "description": "An array of workspace names that belong to this group."
+          }
+        },
+        "required": ["name", "members"]
       }
     }
   },
