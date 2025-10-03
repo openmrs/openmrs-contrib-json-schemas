@@ -117,6 +117,10 @@
           "featureFlag": {
             "type": "string",
             "description": "The name of a feature flag that is defined in the system"
+          },
+          "containerDomId": {
+            "type": "string",
+            "description": "The id of the DOM element that this page should be rendered into. This is very rarely a property that's needed outside of the core framework."
           }
         },
         "required": ["component"],
