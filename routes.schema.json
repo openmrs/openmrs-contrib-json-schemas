@@ -85,6 +85,14 @@
             "format": "regex",
             "description": "A regular expression used to match against the current route to determine whether this page should be rendered. Note that ${window.spaBase} will be removed before attempting to match, so setting this to \"^name.+\" will match any route that starts with ${window.spaBase}/name."
           },
+          "type": {
+            "type": "string",
+            "enum": [
+              "main",
+              "utility"
+            ],
+            "description": "The \"type\" of this page, i.e., whether it represents a main page (the default) or a utility page. A main page is one that, when active, provides the main display context and usually controls a single URL. A utility page is something like the devtools extension that provides ancillary content and may be available at multiple URLs."
+          },
           "privilege": {
             "oneOf": [
               {
