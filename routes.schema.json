@@ -342,11 +342,7 @@
           },
           "icon": {
             "type": "string",
-            "description": "Optional. The name of the component exported by this frontend module. This component should render `<ActionMenuButton2>` and is used as an icon in the workspace action menu."
-          },
-          "canHide": {
-            "type": "boolean",
-            "description": "Whether this workspace window can be minimized"
+            "description": "Optional. The name of the component exported by this frontend module. This component should render `<ActionMenuButton2>` and is used as an icon in the workspace action menu. A workspace window can be minimized (hidden) if and only if it has an icon defined."
           },
           "canMaximize": {
             "type": "boolean",
@@ -367,7 +363,7 @@
             "description": "Controls the width of the workspace. The default is \"narrow\" and this should only be changed to \"wider\" if the workspace itself has internal navigation, like the form editor."
           }
         },
-        "required": ["name", "canHide", "canMaximize", "overlay", "group"],
+        "required": ["name", "canMaximize", "overlay", "group"],
         "additionalProperties": false
       }
     },
