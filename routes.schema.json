@@ -308,6 +308,82 @@
         },
         "required": ["name", "members"]
       }
+    },
+    "workspaces2": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of this workspace. This string is used to launch the workspace (as the first parameter when calling `launchWorkspace2`)."
+          },
+          "component": {
+            "type": "string",
+            "description": "The name of the component exported by this frontend module."
+          },
+          "window": {
+            "type": "string",
+            "description": "The name of the workspace window that this workspace belongs to."
+          }
+        },
+        "required": ["name", "component", "window"],
+        "additionalProperties": false
+      }
+    },
+    "workspaceWindows2": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the workspace window."
+          },
+          "icon": {
+            "type": "string",
+            "description": "Optional. The name of the component exported by this frontend module. This component should render `<ActionMenuButton2>` and is used as an icon in the workspace action menu. A workspace window can be minimized (hidden) if and only if it has an icon defined."
+          },
+          "canMaximize": {
+            "type": "boolean",
+            "description": "Weather this workspace window can be maximized to take up the main content area"
+          },
+          "overlay": { "type": "boolean" },
+          "group": {
+            "type": "string",
+            "description": "The name of the workspace group that this window belongs to."
+          },
+          "order": {
+            "type": "integer",
+            "description": "Determines the order in which this window's icon renders in the workspace action menu."
+          },
+          "width": {
+            "type": "string",
+            "enum": ["narrow", "wider", "extra-wide"],
+            "description": "Controls the width of the workspace. The default is \"narrow\" and this should only be changed to \"wider\" if the workspace itself has internal navigation, like the form editor."
+          }
+        },
+        "required": ["name", "canMaximize", "overlay", "group"],
+        "additionalProperties": false
+      }
+    },
+    "workspaceGroups2": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of this workspace group. This string is used to launch the workspace group (as the first parameter when calling `launchWorkspaceGroup2`)."
+          },
+          "overlay": {
+            "type": "boolean",
+            "description": "Whether the group's windows are rendered on top of (overlaying) the main content or takes up horizontal space to the side of the main content."
+          }
+        },
+        "required": ["name"],
+        "additionalProperties": false
+      }
     }
   },
   "additionalProperties": false,
