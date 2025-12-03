@@ -249,7 +249,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "The name of this worspace. This is used to launch the workspace."
+            "description": "The name of this workspace. This is used to launch the workspace."
           },
           "title": {
             "type": "string",
@@ -346,9 +346,8 @@
           },
           "canMaximize": {
             "type": "boolean",
-            "description": "Weather this workspace window can be maximized to take up the main content area"
+            "description": "Whether this workspace window can be maximized to take up the main content area"
           },
-          "overlay": { "type": "boolean" },
           "group": {
             "type": "string",
             "description": "The name of the workspace group that this window belongs to."
@@ -363,7 +362,7 @@
             "description": "Controls the width of the workspace. The default is \"narrow\" and this should only be changed to \"wider\" if the workspace itself has internal navigation, like the form editor."
           }
         },
-        "required": ["name", "canMaximize", "overlay", "group"],
+        "required": ["name", "group"],
         "additionalProperties": false
       }
     },
@@ -379,6 +378,11 @@
           "overlay": {
             "type": "boolean",
             "description": "Whether the group's windows are rendered on top of (overlaying) the main content or takes up horizontal space to the side of the main content."
+          },
+          "persistence": {
+            "type": "string",
+            "enum": ["app-wide", "closable"],
+            "description": "In app-wide mode, a workspace group renders its action menu without a close button. In closable mode, the action menu has a close button. Defaults to app-wide"
           }
         },
         "required": ["name"],

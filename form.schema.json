@@ -26,7 +26,7 @@
     },
     "pages": {
       "type": "array",
-      "description": "An array of all the pages in this form. Pages are the the basic unit of a form. They are used to group related sections and questions together.",
+      "description": "An array of all the pages in this form. Pages are the basic unit of a form. They are used to group related sections and questions together.",
       "items": {
         "type": "object",
         "properties": {
@@ -603,7 +603,7 @@
       "properties": {
         "uuid": { "type": "string" },
         "encounterDatetime": {
-          "anyOf": [{ "type": "string" }, { "type": "string" }]
+          "type": "string"
         },
         "patient": {
           "anyOf": [
@@ -658,7 +658,7 @@
         "display": { "type": "string" },
         "concept": { "$ref": "#/definitions/openmrsResource" },
         "obsDatetime": {
-          "anyOf": [{ "type": "string" }, { "type": "string" }]
+          "type": "string"
         },
         "obsGroup": { "$ref": "#/definitions/openmrsObs" },
         "groupMembers": {
