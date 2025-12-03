@@ -249,7 +249,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "The name of this worspace. This is used to launch the workspace."
+            "description": "The name of this workspace. This is used to launch the workspace."
           },
           "title": {
             "type": "string",
@@ -346,7 +346,7 @@
           },
           "canMaximize": {
             "type": "boolean",
-            "description": "Weather this workspace window can be maximized to take up the main content area"
+            "description": "Whether this workspace window can be maximized to take up the main content area"
           },
           "group": {
             "type": "string",
@@ -382,7 +382,7 @@
           "persistence": {
             "type": "string",
             "enum": ["app-wide", "closable"],
-            "description": "In app-wide mode, a workspacce group renders its action menu without a close button. In closable mode, the action menu has a cloes button. Defaults to app-wide"
+            "description": "In app-wide mode, a workspace group renders its action menu without a close button. In closable mode, the action menu has a close button. Defaults to app-wide"
           }
         },
         "required": ["name"],
