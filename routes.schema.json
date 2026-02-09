@@ -242,7 +242,7 @@
     },
     "workspaces": {
       "type": "array",
-      "description": "An array of all workspaces provided by this frontend module. Modals are launched by name using the `showModal` function.",
+      "description": "An array of all workspaces provided by this frontend module. Workspaces are launched by name using the `launchWorkspace` function.",
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -306,7 +306,7 @@
             "description": "An array of workspace names that belong to this group."
           }
         },
-        "required": ["name", "members"]
+        "required": ["name"]
       }
     },
     "workspaces2": {
@@ -383,6 +383,14 @@
             "type": "string",
             "enum": ["app-wide", "closable"],
             "description": "In app-wide mode, a workspace group renders its action menu without a close button. In closable mode, the action menu has a close button. Defaults to app-wide"
+          },
+          "closeable": {
+            "type": "boolean",
+            "description": "Whether the workspace group can be closed by the user."
+          },
+          "scopePattern": {
+            "type": "string",
+            "description": "URL pattern that defines the scope where workspaces in this group should persist. If not defined, workspaces close only when navigating to a different app. If defined without capture groups, workspaces close when URL doesn't match pattern. If defined with capture groups, workspaces close when captured values change."
           }
         },
         "required": ["name"],
