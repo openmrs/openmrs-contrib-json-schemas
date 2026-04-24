@@ -41,8 +41,8 @@
               "type": "object",
               "properties": {
                 "isExpanded": {
-                  "type": "string",
-                  "description": "Whether this section renders expanded. 'true' means the section is always expanded; 'false' means it is collapsed by default."
+                  "oneOf": [{ "type": "boolean" }, { "type": "string" }],
+                  "description": "Whether this section renders expanded. Accepts a boolean (`true`/`false`) or the equivalent string literals (`'true'`/`'false'`). The engine coerces both via `isTrue` at runtime."
                 },
                 "label": {
                   "type": "string",
@@ -533,7 +533,7 @@
         },
         "locationTag": { "type": "string" },
         "disallowDecimals": { "type": "boolean" },
-        "rows": { "type": "integer" },
+        "rows": { "oneOf": [{ "type": "string" }, { "type": "integer" }] },
         "step": { "type": "number" },
         "toggleOptions": {
           "type": "object",
