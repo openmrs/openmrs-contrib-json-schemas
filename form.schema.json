@@ -391,8 +391,16 @@
           "description": "Determines if the field value is unspecified"
         },
         "disabled": {
-          "type": "boolean",
-          "description": "Determines if the field is disabled"
+          "oneOf": [
+            { "type": "boolean" },
+            {
+              "type": "object",
+              "properties": {
+                "disableWhenExpression": { "type": "string" }
+              }
+            }
+          ],
+          "description": "Disables the field, either unconditionally (boolean) or when a JS expression evaluates true (object form with `disableWhenExpression`)"
         },
         "isDisabled": {
           "type": "boolean",
