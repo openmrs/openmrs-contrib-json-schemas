@@ -41,8 +41,8 @@
               "type": "object",
               "properties": {
                 "isExpanded": {
-                  "oneOf": [{ "type": "boolean" }, { "type": "string" }],
-                  "description": "Either a string or a boolean. \nIf a string value, 'true' means this section should always be rendered in an expanded state, whereas 'false' means it should be rendered in a collapsed state. \nIf a boolean value, true means this section should always be rendered in an expanded state, whereas false means it should be rendered in a collapsed state."
+                  "type": "string",
+                  "description": "Whether this section renders expanded. 'true' means the section is always expanded; 'false' means it is collapsed by default."
                 },
                 "label": {
                   "type": "string",
@@ -125,15 +125,6 @@
       "type": "string",
       "description": "Determines the processor that mediates conversion of data between form data and the OpenMRS API"
     },
-    "published": {
-      "type": "boolean",
-      "description": "Determines whether the form is published or not",
-      "default": false
-    },
-    "retired": {
-      "type": "boolean",
-      "description": "Determines whether the form is retired or not"
-    },
     "version": {
       "type": "string",
       "description": "Determines the version of the form"
@@ -147,7 +138,8 @@
     },
     "inlineRendering": {
       "type": "string",
-      "description": "Determines whether the form is rendered inline or not"
+      "enum": ["single-line", "multiline", "automatic"],
+      "description": "Default inline rendering mode for the form"
     },
     "referencedForms": {
       "type": "array",
@@ -195,6 +187,7 @@
         "type": "object",
         "properties": {
           "actionId": { "type": "string" },
+          "enabled": { "type": "string" },
           "config": { "type": "object" }
         }
       },
@@ -207,34 +200,27 @@
       },
       "description": "Form options"
     },
-    "resultType": {
-      "type": "string",
-      "enum": ["warning", "error"],
-      "description": "Type of validation result"
+    "translations": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Map of translation keys to translated strings for this form"
     },
-    "errCode": {
-      "type": "string",
-      "description": "Error code (optional)"
-    },
-    "message": {
-      "type": "string",
-      "description": "Validation message"
-    },
-    "answerOptions": {
+    "meta": {
       "type": "object",
       "properties": {
-        "hide": { "$ref": "#/definitions/hideProps" },
-        "label": { "type": "string" },
-        "concept": { "type": "string" }
-      }
-    },
-    "repeatOptions": {
-      "type": "object",
-      "properties": {
-        "addText": { "type": "string" },
-        "limit": { "type": "string" },
-        "limitExpression": { "type": "string" }
-      }
+        "programs": {
+          "type": "object",
+          "properties": {
+            "hasProgramFields": { "type": "boolean" },
+            "isEnrollment": { "type": "boolean" },
+            "uuid": { "type": "string" },
+            "discontinuationDateQuestionId": { "type": "string" }
+          },
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true,
+      "description": "Form metadata consumed by the form engine (e.g. program fields)"
     }
   },
   "required": ["name", "pages"],
@@ -315,23 +301,20 @@
         },
         "type": {
           "type": "string",
-          "description": "The type of the form field"
+          "description": "The type of the form field (e.g. 'obs', 'obsGroup', 'control', 'encounterDatetime', 'encounterLocation', 'encounterProvider', 'encounterRole', 'patientIdentifier', 'personAttribute', 'testOrder', 'programState')"
         },
         "questionOptions": {
           "$ref": "#/definitions/formQuestionOptions",
           "description": "Options specific to the question"
         },
+        "datePickerFormat": {
+          "type": "string",
+          "enum": ["both", "calendar", "timer"],
+          "description": "Controls the date picker rendering. 'calendar' shows a date-only picker, 'timer' shows a time-only picker, and 'both' shows a combined date-and-time picker."
+        },
         "id": {
           "type": "string",
           "description": "Unique identifier of the form field"
-        },
-        "uuid": {
-          "type": "string",
-          "description": "Unique identifier of the form field (optional)"
-        },
-        "groupId": {
-          "type": "string",
-          "description": "Identifier of the group this field belongs to (optional)"
         },
         "questions": {
           "type": "array",
@@ -353,17 +336,17 @@
           "type": "boolean",
           "description": "Determines if the parent of this question is hidden"
         },
-        "fieldDependants": {
+        "fieldDependents": {
           "type": "array",
           "items": { "type": "string" },
           "description": "Identifiers of fields dependent on this field"
         },
-        "pageDependants": {
+        "pageDependents": {
           "type": "array",
           "items": { "type": "string" },
           "description": "Identifiers of pages dependent on this field"
         },
-        "sectionDependants": {
+        "sectionDependents": {
           "type": "array",
           "items": { "type": "string" },
           "description": "Identifiers of sections dependent on this field"
@@ -422,6 +405,18 @@
           ],
           "description": "Determines if the field is readonly"
         },
+        "isReadonly": {
+          "type": "boolean",
+          "description": "Set at runtime to indicate the field has been resolved as readonly"
+        },
+        "isRequired": {
+          "type": "boolean",
+          "description": "Set at runtime to indicate the field has been resolved as required"
+        },
+        "hideSteppers": {
+          "type": "boolean",
+          "description": "For 'number' rendering, hide the increment/decrement steppers"
+        },
         "inlineRendering": {
           "type": "string",
           "enum": ["single-line", "multiline", "automatic"],
@@ -467,31 +462,32 @@
     "renderType": {
       "type": "string",
       "enum": [
-        "select",
-        "text",
-        "date",
-        "number",
         "checkbox",
         "checkbox-searchable",
-        "datetime",
-        "radio",
-        "ui-select-extended",
-        "repeating",
-        "group",
         "content-switcher",
+        "date",
+        "datetime",
+        "drug",
         "encounter-location",
         "encounter-provider",
+        "encounter-role",
+        "extension-widget",
+        "file",
+        "fixed-value",
+        "group",
+        "markdown",
+        "multiCheckbox",
+        "number",
+        "problem",
+        "radio",
+        "repeating",
+        "select",
+        "select-concept-answers",
+        "text",
         "textarea",
         "toggle",
-        "fixed-value",
-        "file",
-        "drug",
-        "multiCheckbox",
-        "encounter-role",
-        "problem",
-        "workspace-launcher",
-        "select-concept-answers",
-        "markdown"
+        "ui-select-extended",
+        "workspace-launcher"
       ]
     },
     "formQuestionOptions": {
@@ -507,19 +503,21 @@
         "maxLength": { "type": "string" },
         "minLength": { "type": "string" },
         "showDate": { "type": "string" },
-        "showDateOptions": {
+        "shownDateOptions": {
           "type": "object",
           "properties": {
-            "validators": { "items": { "type": "object" } }
+            "validators": { "type": "array", "items": { "type": "object" } },
+            "hide": { "$ref": "#/definitions/hideProps" }
           }
         },
-        "showCommentOptions": {
+        "shownCommentOptions": {
           "type": "object",
           "properties": {
-            "validators": { "items": { "type": "object" } }
+            "validators": { "type": "array", "items": { "type": "object" } },
+            "hide": { "$ref": "#/definitions/hideProps" }
           }
         },
-        "showComment": { "type": "string" },
+        "showComment": { "type": "boolean" },
         "answers": {
           "type": "array",
           "items": { "type": "object" }
@@ -534,7 +532,9 @@
           ]
         },
         "locationTag": { "type": "string" },
-        "rows": { "oneOf": [{ "type": "string" }, { "type": "integer" }] },
+        "disallowDecimals": { "type": "boolean" },
+        "rows": { "type": "integer" },
+        "step": { "type": "number" },
         "toggleOptions": {
           "type": "object",
           "properties": {
@@ -565,7 +565,7 @@
             "labelFalse": { "type": "boolean" }
           }
         },
-        "usePreviousValueDisabled": { "type": "boolean" },
+        "enablePreviousValue": { "type": "boolean" },
         "allowedFileTypes": {
           "type": "array",
           "items": { "type": "string" }
@@ -579,14 +579,33 @@
           }
         },
         "isSearchable": { "type": "boolean" },
+        "isCheckboxSearchable": { "type": "boolean" },
         "workspaceName": { "type": "string" },
+        "workspaceProps": { "type": "object" },
         "buttonLabel": { "type": "string" },
         "identifierType": { "type": "string" },
+        "attributeType": { "type": "string" },
         "orderSettingUuid": { "type": "string" },
         "orderType": { "type": "string" },
         "programUuid": { "type": "string" },
         "workflowUuid": { "type": "string" },
         "comment": { "type": "string" },
+        "orientation": {
+          "type": "string",
+          "enum": ["vertical", "horizontal"]
+        },
+        "diagnosis": {
+          "type": "object",
+          "properties": {
+            "rank": { "type": "number" },
+            "isConfirmed": { "type": "boolean" },
+            "conceptClasses": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "conceptSet": { "type": "string" }
+          }
+        },
         "selectableOrders": { "type": "array", "items": { "type": "object" } }
       }
     },
