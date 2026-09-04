@@ -470,6 +470,7 @@
     "renderType": {
       "type": "string",
       "enum": [
+        "annotation",
         "checkbox",
         "checkbox-searchable",
         "content-switcher",
