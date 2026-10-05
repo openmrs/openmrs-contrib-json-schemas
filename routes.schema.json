@@ -325,6 +325,16 @@
           "window": {
             "type": "string",
             "description": "The name of the workspace window that this workspace belongs to."
+          },
+          "width": {
+            "type": "string",
+            "enum": ["narrow", "wider", "extra-wide"],
+            "description": "Overrides the window's width while this workspace is the top-most workspace in its window. The whole window, including parent workspaces beneath it, renders at this width. When omitted, the window's width is used, falling back to narrow."
+          },
+          "meta": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Properties passed to the workspace component via workspaceMeta, available through useWorkspace2Context().workspaceMeta."
           }
         },
         "required": ["name", "component", "window"],
