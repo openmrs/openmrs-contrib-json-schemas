@@ -54,8 +54,8 @@
                   "items": { "$ref": "#/definitions/formField" }
                 },
                 "isHidden": {
-                  "type": "boolean",
-                  "description": "Determines if the section is hidden"
+                  "oneOf": [{ "type": "boolean" }, { "type": "string" }],
+                  "description": "Determines if the section is hidden. Accepts a boolean (`true`/`false`) or the equivalent string literals (`'true'`/`'false'`). The engine coerces both via `isTrue` at runtime."
                 },
                 "isParentHidden": {
                   "type": "boolean",
@@ -79,8 +79,8 @@
             "required": ["label", "questions"]
           },
           "isHidden": {
-            "type": "boolean",
-            "description": "Determines if the page is hidden"
+            "oneOf": [{ "type": "boolean" }, { "type": "string" }],
+            "description": "Determines if the page is hidden. Accepts a boolean (`true`/`false`) or the equivalent string literals (`'true'`/`'false'`). The engine coerces both via `isTrue` at runtime."
           },
           "hide": { "$ref": "#/definitions/hideProps" },
           "isSubform": {
@@ -329,8 +329,8 @@
           "description": "Properties to determine if the field should be hidden"
         },
         "isHidden": {
-          "type": "boolean",
-          "description": "Determines if the field is hidden"
+          "oneOf": [{ "type": "boolean" }, { "type": "string" }],
+          "description": "Determines if the field is hidden. Accepts a boolean (`true`/`false`) or the equivalent string literals (`'true'`/`'false'`). The engine coerces both via `isTrue` at runtime."
         },
         "isParentHidden": {
           "type": "boolean",
@@ -510,7 +510,10 @@
         "isTransient": { "type": "boolean" },
         "maxLength": { "type": "string" },
         "minLength": { "type": "string" },
-        "showDate": { "type": "string" },
+        "showDate": {
+          "oneOf": [{ "type": "boolean" }, { "type": "string" }],
+          "description": "Whether to render an inline date field for this question. Accepts a boolean (`true`/`false`) or the equivalent string literals (`'true'`/`'false'`). The engine coerces both via `isTrue` at runtime."
+        },
         "shownDateOptions": {
           "type": "object",
           "properties": {
@@ -525,7 +528,10 @@
             "hide": { "$ref": "#/definitions/hideProps" }
           }
         },
-        "showComment": { "type": "boolean" },
+        "showComment": {
+          "oneOf": [{ "type": "boolean" }, { "type": "string" }],
+          "description": "Whether to render a comment field for this question. Accepts a boolean (`true`/`false`) or the equivalent string literals (`'true'`/`'false'`). The engine coerces both via `isTrue` at runtime."
+        },
         "answers": {
           "type": "array",
           "items": { "type": "object" }
@@ -586,8 +592,14 @@
             "config": { "type": "object" }
           }
         },
-        "isSearchable": { "type": "boolean" },
-        "isCheckboxSearchable": { "type": "boolean" },
+        "isSearchable": {
+          "oneOf": [{ "type": "boolean" }, { "type": "string" }],
+          "description": "Whether the select input lets users search its options. Accepts a boolean (`true`/`false`) or the equivalent string literals (`'true'`/`'false'`). The engine coerces both via `isTrue` at runtime."
+        },
+        "isCheckboxSearchable": {
+          "oneOf": [{ "type": "boolean" }, { "type": "string" }],
+          "description": "Whether the checkbox input lets users search its options. Accepts a boolean (`true`/`false`) or the equivalent string literals (`'true'`/`'false'`). The engine coerces both via `isTrue` at runtime."
+        },
         "workspaceName": { "type": "string" },
         "workspaceProps": { "type": "object" },
         "buttonLabel": { "type": "string" },
